@@ -1,0 +1,61 @@
+//============================================================================
+// Name        : bank14.cpp
+// Author      : Deepanshu Thakur
+// Version     : 1.0
+// Copyright   : None
+// Description : Fourteen Problem
+//============================================================================
+
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+using namespace std;
+class expri{
+private:
+	float a,b,c,d,e;
+public:
+	expri(){
+		a=b=c=d=e=0;
+	}
+	expri(float a, float b,float c){
+		this->c=c;
+		d=0;
+		e=0;
+		this->a=a;
+		this->b=b;
+	}
+	void getdata(){
+		cout<<"Enter  expression (ax2+bx+c): "<<endl;
+		cin>>a>>b>>c;
+		//scanf("%dx2 + %dx + %d",&a,&b,&c);
+	}
+	int calculate(void){
+		float f=((b*b)-(4*a*c));
+		if(f<0){
+			cout<<"Imagenary solution"<<endl;
+			return 1;
+		}
+		else{
+			d=(-b+sqrt(f))/(2*a);
+			e=(-b-sqrt(f))/(2*a);
+			return 0;
+		}
+	}
+	void display(void){
+		cout<<"solution are "<<d<<"  "<<e<<endl;
+	}
+};
+
+int main(void) {
+	char ch='y';
+	while(ch=='y' || ch=='Y'){
+	expri e;
+	e.getdata();
+	if(!e.calculate())
+		e.display();
+	cout<<"Do you want to perform more action [Y/N]";
+	cin>>ch;
+	}
+	return 0;
+}
