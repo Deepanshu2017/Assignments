@@ -1,0 +1,78 @@
+//============================================================================
+// Name        : bank4.cpp
+// Author      : Deepanshu Thakur
+// Version     : 1.0
+// Copyright   : None
+// Description : Forth Program
+//============================================================================
+
+#include <iostream>
+using namespace std;
+int count[2]={0,0};
+int j=0;
+int rec=0;
+class vec{
+private:
+	float a[100];
+public:
+	vec(){
+		a[100]={0};
+	}
+	vec(float a){
+		int i=0;
+		for(i=0;i<100;i++)
+			this->a[i]=a;
+	}
+	void getdata(void){
+		cout<<"Enter number of elements"<<endl;
+		cin>>count[j];
+		int i=0;
+		cin>>a[0];
+		for(i=1;i<count[j];i++)
+			cin>>a[i];
+		j+=1;
+	}
+	vec operator+(vec sec){
+		vec u;
+		j=0;
+		int i=0;
+		if(count[j]>count[j+1]){
+			rec=count[j];
+			for(i=count[j+1];i<count[j];i++)
+				a[i]=0;
+		}
+		else{
+			rec=count[j+1];
+			for(i=count[j];i<count[j+1];i++)
+				sec.a[i]=0;
+		}
+		for(i=0;i<rec;i++)
+			u.a[i]=a[i]+sec.a[i];
+		return u;
+	}
+	friend ostream & operator<< (ostream &out, vec &u);
+	friend istream & operator>> (istream &in, vec &u);
+};
+ostream & operator<< (ostream &out, vec &u){
+		int i=0;
+		for(i=0;i<rec;i++)
+			out<<u.a[i]<<endl;
+	}
+istream & operator>> (istream &in, vec &u){
+		cout<<"Enter number of elements"<<endl;
+		in>>count[j];
+		int i=0;
+		for(i=0;i<count[j];i++)
+			in>>u.a[i];
+		j+=1;
+	}
+int main(void){
+	vec a,b,c;
+	//a.getdata();
+	//b.getdata();
+	cin>>a;
+	cin>>b;
+	c=b+a;
+	cout<<c;
+	return 0;
+}
