@@ -1,0 +1,99 @@
+//============================================================================
+// Name        : bank6.cpp
+// Author      : Deepanshu Thakur
+// Version     : 1.0
+// Copyright   : None
+// Description : Sixth Program
+//============================================================================
+
+#include <iostream>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+
+class item{
+private:
+	int itemCode;
+	char itemName[100];
+	int quantity;
+	int price;
+
+public:
+	item(){
+		itemCode=0;
+		itemName[100]='\0';
+		quantity=0;
+		price=0;
+	}
+	item(int itemCode, char itemName[],int quantity,int price){
+		this->itemCode=itemCode;
+		strcpy(this->itemName,itemName);
+		this->quantity=quantity;
+		this->price=price;
+	}
+	void Get_Item(void){
+		cout<<"Enter item name"<<endl;
+		cin.ignore();
+		cin.getline(itemName,100);
+		cout<<"Enter item code"<<endl;
+		cin>>itemCode;
+		cout<<"Enter item quantity"<<endl;
+		cin>>quantity;
+		cout<<"Enter Item price"<<endl;
+		cin>>price;
+	}
+	int returncode(int itemCode,int quantity){
+		if(this->itemCode==itemCode){
+			int totalPrice=price*quantity;
+			return totalPrice;
+		}
+		return 0;
+	}
+	void display(int quantity){
+		cout.setf(ios::left,ios::adjustfield);
+		cout.width(40);
+		cout<<itemName;
+		cout.setf(ios::left,ios::adjustfield);
+		cout.width(40);
+		cout<<quantity<<endl;
+	}
+};
+
+int main(void) {
+	cout<<"*************Welcome***********"<<endl;
+	item I[20];
+	int n=0;
+	cout<<"Enter how many items do you want to insert"<<endl;
+	cin>>n;
+	int i=0;
+	for(i=0;i<n;i++){
+		I[i].Get_Item();
+	}
+	cout<<"OK so lets move on to billing part!"<<endl;
+	int bill=0;
+	char ch='y';
+	while(ch=='y' || ch=='Y'){
+		int m_itemCode,m_quantity;
+		cout<<"Enter item code to select an item for billing"<<endl;
+		cin>>m_itemCode;
+		cout<<"Enter item quantity"<<endl;
+		cin>>m_quantity;
+		int flag=0;
+		for(i=0;i<n;i++){
+			int price=I[i].returncode(m_itemCode,m_quantity);
+			if(price){
+				I[i].display(m_quantity);
+				flag=1;
+			}
+			bill=bill+price;
+			price=0;
+		}
+		if(!flag)
+			cout<<"No item found try again"<<endl;
+		cout<<"Do you want to perform more action[Y/N]"<<endl;
+		cin>>ch;
+	}
+	cout<<"Total bill is: "<<bill<<"  only/-"<<endl;
+	return 0;
+}
