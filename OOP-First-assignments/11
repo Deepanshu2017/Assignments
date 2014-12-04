@@ -1,0 +1,102 @@
+//============================================================================
+// Name        : bank11.cpp
+// Author      : Deepanshu Thakur
+// Version     : 1.0
+// Copyright   : None
+// Description : Eleventh Program
+//============================================================================
+
+
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+using namespace std;
+class Rational{
+private:
+	int a;
+public:
+	Rational(){
+		a=0;
+	}
+	Rational(int a){
+		this->a=a;
+	}
+	Rational operator+(Rational &r){
+		Rational s;
+		s.a=a+r.a;
+		return s;
+	}
+	Rational operator-(Rational &r){
+		Rational s;
+		s.a=a-r.a;
+		return s;
+	}
+	Rational operator*(Rational &r){
+		Rational s;
+		s.a=a*r.a;
+		return s;
+	}
+	Rational operator/(Rational &r){
+		Rational s;
+		s.a=a/r.a;
+		return s;
+	}
+	void getdata(){
+		cin>>a;
+	}
+	void display(){
+		cout<<a<<endl;
+	}
+
+	Rational add(Rational &r){
+		Rational s;
+		s.a=a+r.a;
+		return s;
+	}
+	Rational sub(Rational &r){
+		Rational s;
+		s.a=a-r.a;
+		return s;
+	}
+	Rational mul(Rational &r){
+		Rational s;
+		s.a=a*r.a;
+		return s;
+	}
+	Rational div(Rational &r){
+		Rational s;
+		s.a=a/r.a;
+		return s;
+	}
+
+	friend ostream & operator<< (ostream &, Rational &);
+	friend istream & operator>> (istream &, Rational &);
+};
+ostream & operator<<(ostream &out, Rational &s){
+	out<<s.a<<endl;
+}
+istream & operator>>(istream &in, Rational &s){
+	in>>s.a;
+}
+
+int main(void) {
+	Rational r1,r2,r3,r4;
+	cin>>r1;
+	r2=r1;
+	cout<<r2;
+	r3=r1+r2;
+	cout<<r3;
+	r4=r3/r1;
+	cout<<r4;
+	r1.getdata();
+	r2.getdata();
+	r3=r1.add(r2);
+	r3.display();
+	r3=r1.sub(r2);
+	r3.display();
+	r3=r1.mul(r2);
+	r3.display();
+	r3=r1.div(r2);
+	r3.display();
+	return 0;
+}
