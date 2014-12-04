@@ -1,0 +1,99 @@
+//============================================================================
+// Name        : bank10.cpp
+// Author      : Deepanshu Thakur
+// Version     : 1.0
+// Copyright   : None
+// Description : Tenth Program
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+class complex{
+private:
+	int x;
+	int y;
+public:
+	complex(){
+		x=y=0;
+	}
+	complex(int x,int y){
+		this->x=x;
+		this->y=y;
+	}
+	void getdata(void){
+		cout<<"Enter value of x: "<<endl;
+		cin>>x;
+		cout<<"Enter value of y: "<<endl;
+		cin>>y;
+	}
+	complex operator-(complex &s){
+		complex c;
+		c.x=x-s.x;
+		c.y=y-s.y;
+		return c;
+	}
+	void operator+=(int s){
+		x+=s;
+		y+=s;
+	}
+
+	void operator*=(int s){
+		x*=s;
+		y*=s;
+	}
+	complex operator/(complex &s){
+		complex c,d;
+		c.x=s.x;
+		c.y=-s.y;
+		d.x=((x*c.x)-(y*c.y))/((c.x*s.x)+(c.y*s.y));
+		d.y=((x*c.y)+(y*c.x))/((c.x*s.x)+(c.y*s.y));
+		return d;
+	}
+	complex operator+(complex &c){
+		complex r;
+		r.x=x+c.x;
+		r.y=y+c.y;
+		return r;
+	}
+
+	complex operator*(complex &c){
+		complex r;
+		r.x=(x*c.x)-(y*c.y);
+		r.y=(y*c.x)+(x*c.y);
+		return r;
+	}
+
+	void display(void){
+		cout<<x<<" i"<<y<<endl;
+	}
+	friend ostream & operator<< (ostream &, complex &);
+	friend istream & operator>> (istream &, complex &);
+};
+ostream & operator<<(ostream &out, complex &c){
+	out<<c.x<<" i"<<c.y<<endl;
+}
+istream & operator>>(istream &in, complex &c){
+	in>>c.x>>c.y;
+}
+int main(void){
+	complex c1(5,6),c2,c3(2,4),c4,c5,c6,c7,c8;
+	c2=c1;
+	cout<<c2;
+	c4=c1-c2;
+	cout<<c4;
+	c5+=2;
+	cout<<c5;
+	c5*=2;
+	cout<<c5;
+	cin>>c5;
+	cin>>c6;
+	c7=c5/c6;
+	cout<<c7;
+	c8=c6+c7;
+	cout<<c8;
+	cin>>c6>>c7;
+	c8=c6*c7;
+	cout<<c8;
+	return 0;
+}
