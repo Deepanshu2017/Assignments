@@ -1,0 +1,182 @@
+//============================================================================
+// Name        : bank1.cpp
+// Author      : Deepanshu Thakur
+// Version     : 1.0
+// Copyright   : None
+// Description : First Program
+//============================================================================
+
+
+#include <iostream>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+static int glob=0;
+using namespace std;
+int i=0;
+class bankAccount{
+	private:
+		char nameOfDepositer[100];				  
+		unsigned long long int accountNumber;     
+		int typeOfAccountChoice;				  
+		long double amountInAccount;		   	  
+	public:
+		bankAccount(){
+			nameOfDepositer[100]='\0';
+			accountNumber=0;
+			typeOfAccountChoice=0;
+			amountInAccount=0;
+		}
+		bankAccount(char n[],int a,int b,int c){
+			strcpy(nameOfDepositer,n);
+			accountNumber=a;
+			typeOfAccountChoice=b;
+			amountInAccount=c;
+		}
+		int newId(void){
+			if(this->accountNumber==0)
+				return 0;
+			return 1;
+		}
+		int newId(unsigned long long int t){
+			if(t==this->accountNumber)
+				return 1;
+			return 0;
+		}
+		void toDeposite(long double dep){
+			amountInAccount+=dep;
+		}
+		int toWidrow(long double dep,unsigned int day){
+			if(this->typeOfAccountChoice==1)
+				this->amountInAccount+=(this->amountInAccount*0.03*day)/100;
+			else
+				amountInAccount=amountInAccount+pow((1+(0.012/100)),day);
+
+			if(this->amountInAccount>=dep){
+				this->amountInAccount-=dep;
+				glob=1;
+				return 1;
+			}
+			else{
+				return 0;
+			}
+		}
+		void create(void){
+			cin.ignore();
+			cout<<"Enter your name full name : "<<endl;
+			cin.getline(this->nameOfDepositer,100);
+			cout<<"Enter type of account :"<<endl;
+			cout<<"1 for sadharan"<<endl;
+			cout<<"2 for chakrawarti"<<endl;
+			cout<<"Intrest rate of sadharan is 0.03% per day"<<endl;
+			cout<<"Intrest rate of chakrawarti is 0.012% per day"<<endl;
+			cin>>this->typeOfAccountChoice;
+			cout<<"Your unique account number is : ";
+			this->accountNumber=9887631011+((::i+1)*321321321);
+			cout<<this->accountNumber<<endl;
+			cout<<"Please remmeber your account number or you will lose all your balance"<<endl;
+		}
+		void display(void){
+			cout<<"Account holder name			 :      "<<this->nameOfDepositer<<endl;
+			cout<<"Account number				 :	"<<this->accountNumber<<endl;
+			cout<<"Account type				 :      "<<this->typeOfAccountChoice<<endl;
+			cout<<"Avaliable Balance in account  		 :	"<<this->amountInAccount<<endl;
+		}
+};
+int main(void){
+	int j=0,flag=0;
+	bankAccount b[100];
+	cout<<"////***** Welcome to Sapna bank *****////"<<endl;
+	cout<<"   Hum aapka Sapna poora karta ha  "<<endl;
+	char ch;
+	do{
+		unsigned long long int temp=0;
+		cout<<"Menu:"<<endl;
+		cout<<"Enter 1 for create account"<<endl;
+		cout<<"Enter 2 for desposite in a account"<<endl;
+		cout<<"Enter 3 for widthdrawal from account"<<endl;
+		cout<<"Enter 4 for dispaly account details"<<endl;
+		cout<<"Enter 5 for exit"<<endl;
+		int choice;
+		cin>>choice;
+		switch(choice){
+			case 1:
+				while(b[i].newId()){
+					::i=::i+1;
+				}
+				b[i].create();
+				::i=::i+1;
+				break;
+			case 2:
+				flag=0;
+				temp=0;
+				cout<<"Enter account Number"<<endl;
+				cin>>temp;
+				for(j=0;j<=::i;j++){
+					if(b[j].newId(temp)){
+						long double ami=0;
+						cout<<"Enter amount"<<endl;
+						cin>>ami;
+						b[j].toDeposite(ami);
+						flag=1;
+						break;
+					}
+				}
+				if(!flag)
+					cout<<"Sorry no account found"<<endl;
+				else
+					cout<<"Your transistation is successful"<<endl;
+				break;
+			case 3:
+				temp=0;
+				flag=0;
+				cout<<"Enter account Number"<<endl;
+				cin>>temp;
+				for(j=0;j<=::i;j++){
+					if(b[j].newId(temp)){
+						unsigned int day;
+						cout<<"Enter number of days since your account made"<<endl;
+						cin>>day;
+						long double ami=0;
+						cout<<"Enter amount"<<endl;
+						cin>>ami;
+						b[j].toWidrow(ami,day);
+						if(!glob)
+							cout<<"Sorry transistation unsuccessful"<<endl;
+						else
+							cout<<"Your transistation is successful"<<endl;
+						flag=1;
+						glob=0;
+						break;
+					}
+				}
+				if(!flag){
+					cout<<"No account found! Try again"<<endl;
+				}
+				break;
+				case 4:
+					flag=0;
+					temp=0;
+					cout<<"Enter account Number for details"<<endl;
+					cin>>temp;
+					for(j=0;j<=::i;j++){
+						if(b[j].newId(temp)){
+							b[j].display();
+							flag=1;
+							break;
+						}
+					}
+					if(!flag)
+						cout<<"Please check again account number and try again"<<endl;
+					break;
+				case 5:
+					exit(0);
+				default:
+						cout<<"Sorry wrong choice"<<endl;
+						break;
+		}
+		cout<<"Do you want to try again [Y/N]"<<endl;
+		cin>>ch;
+	}while(ch=='y' || ch=='Y');
+	return 0;
+}
