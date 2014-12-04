@@ -1,0 +1,102 @@
+//============================================================================
+// Name        : bank12.cpp
+// Author      : Deepanshu Thakur
+// Version     : 1.0
+// Copyright   : None
+// Description : Twelve Program
+//============================================================================
+
+#include <iostream>
+#include <math.h>
+#include <stdlib.h>
+using namespace std;
+double temp=0;
+
+class Account{
+protected:
+	char name[100];
+	long int acno;
+	double openbal;
+ public:
+	Account(){
+		cout<<"Enter the name of A/C Holder : ";
+		static int cou=0;
+		if(cou>0)
+			cin.ignore();
+		cou+=1;
+		cin.getline(name,100);
+		cout<<"Enter the A/C Number :";
+		cin>>acno;
+		cout<<"Enter the initial balance :";
+		cin>>openbal;
+	}
+	void credit(void){
+		cout<<endl<<"Enter the Amount to be credited : ";
+		cin>>temp;
+		openbal+=temp;
+	}
+
+	void display(void){
+		cout<<"The name of A/C Holder : "<<name;
+		cout<<endl;
+		cout<<"The A/C Number : "<<acno;
+		cout<<endl;
+		cout<<"Clear  balance : "<<openbal;
+	}
+};
+
+class saving : public Account{
+private:
+
+public:
+	void cal_interest(){
+		double pamt,yrs,tempp;
+		cout<<"Interest Rate is 2% "<<"and Interest is Compounded 2 times per year"<<endl;
+		cout<<"Enter the no. of years";
+		cin>>yrs;
+		tempp=openbal/pow(1.01,2*yrs);
+		cout<<"You have been paid a sum of "<<openbal-tempp<<" Rupees in "<<yrs<<" Years"<<endl;
+		display();
+	}
+	void debit(double deb){
+		if(deb > openbal)
+			cout<<"Insufficient Balance";
+		else
+			openbal-=deb;
+		cout<<"account detail :"<<endl;
+		display();
+	}
+};
+
+class current : public Account{
+private:
+
+public:
+	void debit(){
+		cout<<"Enter the amount to be debited from Current account :";
+		cin>>temp;
+		if(openbal < 3000){
+			openbal-=100;
+			cout<<"100 Penelty....Kindly maintain your minimum balance!!!"<<endl;
+		}
+		openbal-=temp;
+		display();
+	}
+};
+
+int main(void){
+	char ch;
+	saving sav;
+	cout<<"Enter the amount to be debited from saving account :";
+	cin>>temp;
+	sav.debit(temp);
+	cout<<endl<<"Do you want to calculate the Compount Interest?(y/n) ";
+	cin>>ch;
+	if (ch=='y' || ch=='Y'){
+		sav.cal_interest();
+	}
+	current cur;
+	cout<<endl;
+	cur.debit();
+	return 0;
+}
