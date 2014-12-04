@@ -1,0 +1,82 @@
+//============================================================================
+// Name        : bank13.cpp
+// Author      : Deepanshu Thakur
+// Version     : 1.0
+// Copyright   : None
+// Description : Thirtheen Program
+//============================================================================
+
+
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+class description{
+	char name[100];
+	char sex;
+	int age;
+public:
+	description(){
+		cout<<"Enter the deatils \n Patient's name :";
+		cin.getline(name,100);
+		cout<<"Enter Sex [M/F/U] : ";
+		cin>>sex;
+		cout<<"Age :";
+		cin>>age;
+	}
+	void display(){
+		cout<<"Enter the deatils \n Patient's name :";
+		cout<<name<<endl;
+		cout<<"Sex :";
+		cout<<sex<<endl;
+		cout<<"Age :";
+		cout<<age<<endl;
+	}
+};
+class hospital{
+	int wardno;
+	int bedno;
+	char nature[100];
+public:
+	hospital(){
+		cout<<"Ward no. :";
+		cin>>wardno;
+		cout<<"Bed no. :";
+		cin>>bedno;
+		cin.ignore();
+		cout<<"Nature Of Illness :";
+		cin.getline(nature,100);
+	}
+	void display(){
+		cout<<"Ward no. :";
+		cout<<wardno<<endl;;
+		cout<<"Bed no. :";
+		cout<<bedno<<endl;
+		cout<<"Nature Of Illness :";
+		cout<<nature<<endl;
+	}
+};
+class patient : public description , public hospital{
+	int admission1,admission2,admission3;
+	int discharge1,discharge2,discharge3;
+public:
+	patient(){
+		cout<<"The Date (dd/mm/yy) of \n Admission :";
+		scanf("%d/%d/%d",&admission1,&admission2,&admission3);
+		cout<<"Discharge";
+		scanf("%d/%d/%d",&discharge1,&discharge2,&discharge3);
+	}
+	void display(){
+		cout<<"The Date (dd/mm/yy) of \n Admission :";
+		cout<<admission1<<"/"<<admission2<<"/"<<admission3<<endl;
+		cout<<"Discharge";
+		cout<<discharge1<<"/"<<discharge2<<"/"<<discharge3<<endl;
+		description::display();
+		hospital::display();
+	}
+};
+int main(void){
+	patient p;
+	p.display();
+	return 0;
+}
