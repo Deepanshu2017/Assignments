@@ -1,0 +1,59 @@
+//============================================================================
+// Name        : bank7.cpp
+// Author      : Deepanshu Thakur
+// Version     : 1.0
+// Copyright   : None
+// Description : Seventh Program
+//============================================================================
+
+#include <iostream>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+using namespace std;
+class string1{
+private:
+	char str[100];
+public:
+	string1(){
+		str[100]={'\0'};
+	}
+	string1(char stre []){
+		strcpy(str,stre);
+	}
+	void getdata(){
+		static int count=1;
+		cout<<"Enter "<<count<<" string"<<endl;
+		//cin.ignore();
+		cin.getline(str,100);
+		count+=1;
+	}
+	string1 operator+(string1 s2){
+		string1 s3;
+		int i=0,j=0;
+		while(str[i]!='\0'){
+			s3.str[i]=str[i];
+			i+=1;
+		}
+		while(s2.str[j]!='\0'){
+			s3.str[i]=s2.str[j];
+			j+=1;
+			i+=1;
+		}
+		s3.str[i]='\0';
+		return s3;
+	}
+	void display(void){
+		cout<<str;
+	}
+};
+
+int main(void){
+	cout<<"This program concatinate two strings with operator overloading concept"<<endl;
+	string1 s1("INDIA"),s2(" PAKISTAN"),s3;
+	s1.getdata();
+	s2.getdata();
+	s3=s1+s2;
+	s3.display();
+	return 0;
+}
